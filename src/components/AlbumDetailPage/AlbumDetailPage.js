@@ -8,27 +8,22 @@ const AlbumDetailPage = () => {
   const [newPhotoUrl, setNewPhotoUrl] = useState('');
   const [newPhotoTitle, setNewPhotoTitle] = useState('');
   const [loading, setLoading] = useState(false);
-  const [start, setStart] = useState(0);
-  const limit = 10;
 
   useEffect(() => {
     const fetchPhotos = async () => {
-      setLoading(true);
       try {
-        const response = await fetch(`http://localhost:5010/photos?albumId=${albumId}&_start=${start}&_limit=${limit}`);
+        const response = await fetch(`http://localhost:5010/photos?albumId=${albumId}`);
         if (response.ok) {
           const data = await response.json();
-          setPhotos((prevPhotos) => [...prevPhotos, ...data]);
+          setPhotos(data);
         }
       } catch (error) {
         console.error('Error fetching photos:', error);
-      } finally {
-        setLoading(false);
       }
     };
 
     fetchPhotos();
-  }, [albumId, start]);
+  }, [albumId]);
 
   const addPhoto = async () => {
     if (!newPhotoUrl || !newPhotoTitle) return;
@@ -74,10 +69,6 @@ const AlbumDetailPage = () => {
     }
   };
 
-  const loadMorePhotos = () => {
-    setStart((prevStart) => prevStart + limit);
-  };
-
   return (
     <div className="album-detail-page">
       <h1>Album {albumId}</h1>
@@ -106,11 +97,6 @@ const AlbumDetailPage = () => {
         ))}
       </div>
       {loading && <div>Loading more photos...</div>}
-      {!loading && (
-        <button onClick={loadMorePhotos} className="load-more-button">
-          Load More Photos
-        </button>
-      )}
     </div>
   );
 };

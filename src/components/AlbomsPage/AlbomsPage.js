@@ -71,7 +71,7 @@ const AlbomsPage = () => {
         </div>
         <ul className="albums-list">
           {filteredAlbums.map(album => (
-            <li key={album.id} onClick={() => navigate(`/users/${userId}/albums/${album.id}/potos`)}>
+            <li key={album.id} onClick={() => navigate(`${album.id}/potos`)}>
               <span><strong>ID:</strong> {album.id} - <strong>Title:</strong> {album.title}</span>
             </li>
           ))}

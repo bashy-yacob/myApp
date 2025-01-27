@@ -27,6 +27,9 @@ const TodosPage = () => {
     fetchTodos();
   }, [userId]);
 
+  // ... rest of the component code
+
+  // מיון ה-Todos
   const sortTodos = (criterion) => {
     const sortedTodos = [...todos];
     switch (criterion) {

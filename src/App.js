@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import LoginPage from './components/LoginPage/LoginPage';
 import RegisterPage from './components/RegisterPage/RegisterPage';
@@ -39,7 +39,7 @@ function App() {
               <Route path="todos" element={<TodosPage />} />
               <Route path="posts" element={<PostsPage />} />
               <Route path="albums" element={<AlbomsPage />} />
-              <Route path="albums/:albumId/potos" element={<AlbumDetailPage />} />
+              <Route path="albums/:albumId" element={<AlbumDetailPage />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </>
