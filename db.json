@@ -39634,7 +39634,7 @@
       "userId": 1,
       "id": "4",
       "title": "et porro tempora",
-      "completed": false
+      "completed": true
     },
     {
       "userId": 1,
@@ -39868,7 +39868,7 @@
       "userId": 3,
       "id": "43",
       "title": "tempore ut sint quis recusandae",
-      "completed": false
+      "completed": true
     },
     {
       "userId": 3,
@@ -40816,7 +40816,7 @@
       "id": "055b",
       "userId": 1,
       "title": "הי זה כבר עובד?",
-      "completed": true
+      "completed": false
     },
     {
       "id": "d456",
@@ -40864,13 +40864,25 @@
       "id": "c07d",
       "userId": 3,
       "title": "i love you 🩷🩷🩷🩷🩷🩷🩷🩷",
-      "completed": false
+      "completed": true
     },
     {
       "id": "5f0c",
       "userId": 3,
       "title": "בכעינחמלך",
       "completed": false
+    },
+    {
+      "id": "bc5c",
+      "userId": 3,
+      "title": "אני מוסיפה משימה",
+      "completed": true
+    },
+    {
+      "id": "f1de",
+      "userId": 1,
+      "title": "🥰🥰🥰🥰🥰",
+      "completed": true
     }
   ],
   "users": [

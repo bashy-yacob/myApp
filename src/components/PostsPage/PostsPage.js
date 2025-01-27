@@ -303,7 +303,7 @@ const PostsPage = () => {
                     <button onClick={() => handleDeletePost(post.id)}>Delete</button>
                   </>
                 )}
-                <button onClick={() => handleSelectPost(post.id)}>Show information</button>
+                <button onClick={() => handleSelectPost(post.id)}>read more</button>
                 {selectedPostId === post.id && (
                   <div className="selected-post">
                     <p>{post.body}</p>

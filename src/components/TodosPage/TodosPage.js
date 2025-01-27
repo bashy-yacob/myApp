@@ -8,6 +8,7 @@ const TodosPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [sortCriterion, setSortCriterion] = useState('');
   const [newTodoTitle, setNewTodoTitle] = useState('');
+  const [showAddTodo, setShowAddTodo] = useState(false);
   const [editingTodoId, setEditingTodoId] = useState(null);
   const [editingTitle, setEditingTitle] = useState('');
 
@@ -74,6 +75,7 @@ const TodosPage = () => {
         const savedTodo = await response.json(); // קבלת ה-TODO המלא מהשרת
         setTodos([...todos, { ...savedTodo, userId: Number(savedTodo.userId) }]); // הבטחת עקביות
         setNewTodoTitle('');
+        setShowAddTodo(false);
       }
     } catch (error) {
       console.error('Error adding todo:', error);
@@ -201,33 +203,37 @@ const TodosPage = () => {
                   <button onClick={cancelEditing}>Cancel</button>
                 </div>
               ) : (
+                <>
                 <div>
-                  <span>
-                    <strong>ID:</strong> {todo.id}  <strong>Title:</strong> {todo.title}
-                  </span>
+                  <span className="todo-id">{todo.id}</span>
                   <input
                     type="checkbox"
                     checked={todo.completed}
                     onChange={() => toggleCompletion(todo.id)}
                   />
-                  <button onClick={() => startEditing(todo.id, todo.title)}>Edit</button>
-                  <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+                  <span className={`todo-title ${todo.completed ? 'completed-title' : ''}`}>{todo.title}</span>
                 </div>
+                  <div className="todo-actions" style={{ textAlign: 'right' }}>
+                   <button onClick={() => startEditing(todo.id, todo.title)}>Edit</button>
+                   <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+                 </div>
+                 </>
               )}
             </li>
           ))}
         </ul>
-        {/* הוספה */}
-        <div className="add-todo">
-          <input
-            type="text"
-            placeholder="Add a new todo"
-            value={newTodoTitle}
-            onChange={(e) => setNewTodoTitle(e.target.value)}
-          />
-          <button onClick={addTodo}>Add</button>
-        </div>
-
+        {showAddTodo && (
+          <div className="add-todo-form">
+            <input
+              type="text"
+              placeholder="Add a new todo"
+              value={newTodoTitle}
+              onChange={(e) => setNewTodoTitle(e.target.value)}
+            />
+            <button onClick={addTodo}>Add</button>
+          </div>
+        )}
+        <button className="add-todo-button" onClick={() => setShowAddTodo(!showAddTodo)}>+</button>
       </div>
     </div>
   );
