@@ -6,6 +6,7 @@ import HomePage from './components/HomePage/HomePage';
 import TodosPage from './components/TodosPage/TodosPage';
 import PostsPage from './components/PostsPage/PostsPage';
 import AlbomsPage from './components/AlbomsPage/AlbomsPage';
+import AlbumDetailPage from './components/AlbumDetailPage/AlbumDetailPage';
 import LandingPage from './components/LandingPage/LandingPage';
 import InfoPage from './components/InfoPage/InfoPage';
 import Dashboard from './components/Dashboard/Dashboard';
@@ -38,6 +39,7 @@ function App() {
               <Route path="todos" element={<TodosPage />} />
               <Route path="posts" element={<PostsPage />} />
               <Route path="albums" element={<AlbomsPage />} />
+              <Route path="albums/:albumId/potos" element={<AlbumDetailPage />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </>
