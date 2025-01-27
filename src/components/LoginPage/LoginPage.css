@@ -1,86 +1,74 @@
 .login-page {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    color: #000000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  
-  /* קונטיינר לטופס */
-  .login-container {
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    padding: 30px 40px;
-    text-align: center;
-    width: 100%;
-    max-width: 400px;
-  }
-  
-  /* כותרת הטופס */
-  .login-container h1 {
-    margin-bottom: 20px;
-    font-size: 2em;
-  }
-  
-  /* הודעת שגיאה */
-  .login-error {
-    margin-bottom: 15px;
-    font-size: 0.8em;
-    color: #ff0000;
-    font-weight: bold;
-  }
-  
-  /* שדות קלט */
-  .login-input {
-    width: 100%;
-    padding: 10px 15px;
-    margin: 10px 0;
-    border: none;
-    border-radius: 5px;
-    font-size: 1em;
-    box-sizing: border-box;
-    outline: none;
-    background-color: rgba(255, 255, 255, 0.5);
-    color: #333;
-  }
-  .email-input {
-    width: 100%;
-    padding: 10px 15px;
-    margin: 10px 0;
-    border: none;
-    border-radius: 5px;
-    font-size: 1em;
-    box-sizing: border-box;
-    outline: none;
-    background-color: rgba(255, 255, 255, 0.5);
-    color: #333;
-  }
-  
-  /* שדה קלט: במצב פוקוס */
-  .login-input:focus {
-    background-color: #fff;
-    box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
-  }
-  
-  /* כפתור התחברות */
-  .login-button {
-    background-color: #ffffff82;
-    color: rgb(0, 0, 0);
-    padding: 10px 20px;
-    margin-top: 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-    transition: background-color 0.3s ease;
-  }
-  
-  /* כפתור: במצב ריחוף */
-  .login-button:hover {
-    background-color: #ffffffbb;
-  }
-  
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  color: #000000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-attachment: fixed;
+}
+
+/* קונטיינר לטופס */
+.login-container {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  padding: 30px 40px;
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* כותרת הטופס */
+.login-container h1 {
+  margin-bottom: 20px;
+  font-size: 2em;
+}
+
+/* הודעת שגיאה */
+.login-error {
+  margin-bottom: 15px;
+  font-size: 0.8em;
+  color: #ff0000;
+  font-weight: bold;
+}
+
+/* שדות קלט */
+.login-input {
+  width: 100%;
+  padding: 10px 15px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+  box-sizing: border-box;
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.5);
+  color: #333;
+}
+
+/* שדה קלט: במצב פוקוס */
+.login-input:focus {
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+}
+
+/* כפתור התחברות */
+.login-button {
+  background-color: #ffffff82;
+  color: rgb(0, 0, 0);
+  padding: 10px 20px;
+  margin-top: 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
+}
+
+/* כפתור: במצב ריחוף */
+.login-button:hover {
+  background-color: #ffffffbb;
+}

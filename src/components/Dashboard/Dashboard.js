@@ -13,7 +13,7 @@ const Dashboard = ({ user, onLogout }) => {
 
   return (
     <div className="dashboard">
-      <header className="dashboard-header">
+      {/* <header className="dashboard-header"> */}
         <nav className="dashboard-nav">
           <button onClick={() => navigate(`/users/${userId}/home`)}>Home</button>
           <button onClick={() => navigate(`/users/${userId}/home/info`)}>Info</button>
@@ -22,7 +22,7 @@ const Dashboard = ({ user, onLogout }) => {
           <button onClick={() => navigate(`/users/${userId}/albums`)}>Albums</button>
           <button onClick={handleLogout}>Logout</button>
         </nav>
-      </header>
+      {/* </header> */}
       <main className="dashboard-content">
         <Outlet />
       </main>

@@ -39,7 +39,7 @@ function App() {
               <Route path="todos" element={<TodosPage />} />
               <Route path="posts" element={<PostsPage />} />
               <Route path="albums" element={<AlbomsPage />} />
-              <Route path="albums/:albumId" element={<AlbumDetailPage />} />
+              <Route path="albums/:albumId/potos" element={<AlbumDetailPage />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </>

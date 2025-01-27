@@ -1,3 +1,11 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+  background-attachment: fixed;
+}
+
 .App {
   text-align: center;
 }
@@ -35,4 +43,36 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200px;
+  height: 100%;
+  background-color: #00796b;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  z-index: 1000;
+}
+
+nav a {
+  color: #ffffff;
+  text-decoration: none;
+  margin: 10px 0;
+  font-size: 1.2em;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: #004d40;
+}
+
+main {
+  margin-left: 200px;
+  padding: 20px;
 }

@@ -1,0 +1,47 @@
+.info-page {
+  font-family: 'Roboto', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  min-height: 100vh;
+  background-attachment: fixed;
+}
+
+.info-header {
+  font-size: 2.2rem;
+  color: #00796b;
+  margin-bottom: 20px;
+}
+
+.info-content {
+  width: 100%;
+  max-width: 800px;
+  background-color: #ffffffa8;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
+}
+
+.info-content h2 {
+  font-size: 1.8rem;
+  color: #004d40;
+  margin-bottom: 15px;
+}
+
+.info-content p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #555;
+}
+
+.info-content a {
+  color: #00796b;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.info-content a:hover {
+  color: #004d40;
+}

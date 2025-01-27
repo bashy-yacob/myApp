@@ -21,6 +21,11 @@ const PostsPage = () => {
   const [showComments, setShowComments] = useState(false);
   const [viewAll, setViewAll] = useState(false);
   const [userEmail, setUserEmail] = useState('');
+  const [commentsVisible, setCommentsVisible] = useState(true);
+
+  const toggleComments = () => {
+    setCommentsVisible(!commentsVisible);
+  };
 
   useEffect(() => {
     const fetchUserEmail = async () => {
@@ -292,49 +297,61 @@ const PostsPage = () => {
             ) : (
               <div>
                 <span>{post.id} - {post.title}</span>
-                <button onClick={() => handleSelectPost(post.id)}>Select</button>
+                <button onClick={() => handleSelectPost(post.id)}>Show information</button>
                 <button onClick={() => startEditing(post.id, post.title, post.body)}>Edit</button>
                 <button onClick={() => handleDeletePost(post.id)}>Delete</button>
                 {selectedPostId === post.id && (
                   <div className="selected-post">
                     <p>{post.body}</p>
-                    <button onClick={() => handleShowComments(post.id)}>Show Comments</button>
+                    {!showComments && (
+                      <button onClick={() => handleShowComments(post.id)}>Show Comments</button>
+                    )}
                     {showComments && (
                       <>
-                        <h3>Comments</h3>
-                        <ul className="comments-list">
-                          {comments.map(comment => (
-                            <li key={comment.id} className="comment-item">
-                              {editingCommentId === comment.id ? (
-                                <div>
-                                  <textarea
-                                    value={editingCommentContent}
-                                    onChange={(e) => setEditingCommentContent(e.target.value)}
-                                  />
-                                  <button onClick={() => saveEditComment(comment.id)}>Save</button>
-                                  <button onClick={cancelEditingComment}>Cancel</button>
-                                </div>
-                              ) : (
-                                <div>
-                                  <p>{comment.body}</p>
-                                  {comment.email === userEmail && (
-                                    <>
-                                      <button onClick={() => startEditingComment(comment.id, comment.body)}>Edit</button>
-                                      <button onClick={() => handleDeleteComment(comment.id)}>Delete</button>
-                                    </>
+                        <button onClick={toggleComments}>
+                          {commentsVisible ? 'Hide Comments' : 'Show Comments'}
+                        </button>
+                        {commentsVisible && (
+                          <div className="comments">
+                            <button className="close-comments-button" onClick={toggleComments}>
+                              Close
+                            </button>
+                            <h3>Comments</h3>
+                            <ul className="comments-list">
+                              {comments.map(comment => (
+                                <li key={comment.id} className="comment-item">
+                                  {editingCommentId === comment.id ? (
+                                    <div>
+                                      <textarea
+                                        value={editingCommentContent}
+                                        onChange={(e) => setEditingCommentContent(e.target.value)}
+                                      />
+                                      <button onClick={() => saveEditComment(comment.id)}>Save</button>
+                                      <button onClick={cancelEditingComment}>Cancel</button>
+                                    </div>
+                                  ) : (
+                                    <div>
+                                      <p>{comment.body}</p>
+                                      {comment.email === userEmail && (
+                                        <>
+                                          <button onClick={() => startEditingComment(comment.id, comment.body)}>Edit</button>
+                                          <button onClick={() => handleDeleteComment(comment.id)}>Delete</button>
+                                        </>
+                                      )}
+                                    </div>
                                   )}
-                                </div>
-                              )}
-                            </li>
-                          ))}
-                        </ul>
-                        <input
-                          type="text"
-                          placeholder="Add a comment"
-                          value={newComment}
-                          onChange={(e) => setNewComment(e.target.value)}
-                        />
-                        <button onClick={handleAddComment}>Add Comment</button>
+                                </li>
+                              ))}
+                            </ul>
+                            <input
+                              type="text"
+                              placeholder="Add a comment"
+                              value={newComment}
+                              onChange={(e) => setNewComment(e.target.value)}
+                            />
+                            <button onClick={handleAddComment}>Add Comment</button>
+                          </div>
+                        )}
                       </>
                     )}
                   </div>
