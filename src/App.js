@@ -15,7 +15,6 @@ import './App.css';
 
 function App() {
   const [user, setUser] = useState(() => JSON.parse(localStorage.getItem('user')));
-  // const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
   const handleLogout = () => {
     localStorage.removeItem('user');
