@@ -7,21 +7,20 @@ const Dashboard = ({ user, onLogout }) => {
   const { userId } = useParams();
 
   const handleLogout = () => {
-    onLogout();
-    navigate('/login');
+    if (window.confirm('Are you sure you want to logout?')) {
+      onLogout();
+    }
   };
 
   return (
     <div className="dashboard">
-      {/* <header className="dashboard-header"> */}
-        <nav className="dashboard-nav">
-          <button onClick={() => navigate(`/users/${userId}/home/info`)}>Info</button>
-          <button onClick={() => navigate(`/users/${userId}/todos`)}>Todos</button>
-          <button onClick={() => navigate(`/users/${userId}/posts`)}>Posts</button>
-          <button onClick={() => navigate(`/users/${userId}/albums`)}>Albums</button>
-          <button onClick={handleLogout}>Logout</button>
-        </nav>
-      {/* </header> */}
+      <nav className="dashboard-nav">
+        <button onClick={() => navigate(`/users/${userId}/home/info`)}>Info</button>
+        <button onClick={() => navigate(`/users/${userId}/todos`)}>Todos</button>
+        <button onClick={() => navigate(`/users/${userId}/posts`)}>Posts</button>
+        <button onClick={() => navigate(`/users/${userId}/albums`)}>Albums</button>
+        <button onClick={handleLogout}>Logout</button>
+      </nav>
       <main className="dashboard-content">
         <Outlet />
       </main>

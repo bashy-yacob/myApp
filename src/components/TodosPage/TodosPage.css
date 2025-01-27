@@ -19,18 +19,15 @@ body {
   max-width: 900px;
 }
 
-h1 {
-  text-align: center;
-}
 
 .add-todo, .search-sort {
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   margin-bottom: 20px;
 }
 
 .add-todo input, .search-sort input, .search-sort select {
-  padding: 10px;
+  padding: 5px;
   margin-right: 10px;
   border-radius: 5px;
   border: 1px solid #ffffff;
@@ -87,6 +84,8 @@ h1 {
 
 .todos-list input[type="checkbox"] {
   appearance: none;
+  margin-left: 10px;
+  margin-right: 10px;
   width: 20px;
   height: 20px;
   border: 2px solid #474747;
@@ -99,6 +98,8 @@ h1 {
 
 .todos-list input[type="checkbox"]:checked {
   background-color: #474747;
+  margin-left: 10px;
+  margin-right: 10px;
   border-color: #000000;
 }
 
@@ -197,8 +198,8 @@ h1 {
   color: white;
   border: none;
   border-radius: 50%;
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   font-size: 40px;
   cursor: pointer;
   display: flex;

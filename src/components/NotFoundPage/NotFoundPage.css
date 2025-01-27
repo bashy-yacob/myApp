@@ -110,3 +110,19 @@
 .home-link:hover {
   background-color: #004d40;
 }
+
+.back-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #00796b;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-right: 10px;
+}
+
+.back-button:hover {
+  background-color: #004d40;
+}

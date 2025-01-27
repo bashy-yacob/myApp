@@ -1,3 +1,7 @@
+*{
+  font-family: Arial, sans-serif;
+}
+
 html, body {
   margin: 0;
   padding: 0;
@@ -75,4 +79,49 @@ nav a:hover {
 main {
   margin-left: 200px;
   padding: 20px;
+}
+
+.logout-confirm {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  z-index: 1000;
+}
+
+.logout-confirm p {
+  margin-bottom: 20px;
+  font-size: 1.2em;
+}
+
+.logout-confirm button {
+  padding: 10px 20px;
+  margin: 0 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.logout-confirm button:first-child {
+  background-color: #00796b;
+  color: white;
+}
+
+.logout-confirm button:first-child:hover {
+  background-color: #004d40;
+}
+
+.logout-confirm button:last-child {
+  background-color: #ccc;
+  color: black;
+}
+
+.logout-confirm button:last-child:hover {
+  background-color: #999;
 }

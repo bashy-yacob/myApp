@@ -1,8 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './NotFoundPage.css';
 
 const NotFoundPage = () => {
+  const navigate = useNavigate();
+
+  const handleGoBack = () => {
+    navigate(-1);
+  };
+
   return (
     <div className="not-found-page">
       <h1>404 - Page Not Found</h1>
@@ -16,6 +22,7 @@ const NotFoundPage = () => {
           </div>
         </div>
       </div>
+      <button className="back-button" onClick={handleGoBack}>Go Back</button>
       <Link to="/" className="home-link">Go Back Home</Link>
     </div>
   );
