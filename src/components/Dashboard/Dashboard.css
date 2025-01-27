@@ -31,6 +31,12 @@
   .dashboard-nav a {
     display: block;
     text-align: left;
+    color: white;
+    text-decoration: none;
+  }
+  
+  .dashboard-nav a:hover {
+    text-decoration: underline;
   }
   
   .dashboard-content {

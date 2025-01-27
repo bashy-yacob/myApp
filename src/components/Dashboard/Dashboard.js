@@ -2,12 +2,12 @@ import React from 'react';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import './Dashboard.css';
 
-const Dashboard = ({ user }) => {
+const Dashboard = ({ user, onLogout }) => {
   const navigate = useNavigate();
   const { userId } = useParams();
 
   const handleLogout = () => {
-    localStorage.removeItem('user');
+    onLogout();
     navigate('/login');
   };
 

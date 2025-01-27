@@ -14,6 +14,11 @@ function App() {
   const [user, setUser] = useState(() => JSON.parse(localStorage.getItem('user')));
   const NotFound = () => <div className="content">404 - Page Not Found</div>;
 
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    setUser(null);
+  };
+
   return (
     <Router>
       <Routes>
@@ -27,7 +32,7 @@ function App() {
         ) : (
           <>
             <Route path="/" element={<Navigate to={`/users/${user.id}/home`} />} />
-            <Route path="/users/:userId" element={<Dashboard user={user} />}>
+            <Route path="/users/:userId" element={<Dashboard user={user} onLogout={handleLogout} />}>
               <Route path="home" element={<HomePage user={user} />} />
               <Route path="home/info" element={<InfoPage user={user} />} />
               <Route path="todos" element={<TodosPage />} />
