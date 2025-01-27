@@ -150,6 +150,73 @@ h1 {
   background-color: rgb(0, 0, 0);
 }
 
+.add-todo-form {
+  position: fixed;
+  bottom: 60px;
+  right: 20px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add-todo-form input {
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.add-todo-form button {
+  padding: 10px 20px;
+  background-color: #00796b;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-bottom: 10px;
+}
+
+.add-todo-form button:hover {
+  background-color: #004d40;
+}
+
+.add-todo-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #00796b;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.add-todo-button:hover {
+  background-color: #004d40;
+}
+
+.todo-id {
+  color: #00796b;
+  margin-right: 10px;
+}
+
+.todo-title {
+  color: #004d40;
+}
+
 
 
 

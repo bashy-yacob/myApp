@@ -203,7 +203,7 @@ const TodosPage = () => {
               ) : (
                 <div>
                   <span>
-                    <strong>ID:</strong> {todo.id} - <strong>Title:</strong> {todo.title}
+                    <strong>ID:</strong> {todo.id}  <strong>Title:</strong> {todo.title}
                   </span>
                   <input
                     type="checkbox"

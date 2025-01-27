@@ -72,7 +72,7 @@ const AlbomsPage = () => {
   };
 
   const handleNavigateToAlbum = (albumId) => {
-    navigate(`/albums/${albumId}/photos`);
+    navigate(`${albumId}/photos`);
   };
 
   return (
