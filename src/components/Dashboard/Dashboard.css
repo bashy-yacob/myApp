@@ -5,28 +5,24 @@
   background-attachment: fixed;
 }
 
-/* .dashboard-header {
-  background-color: #3333339f;
-  color: white;
-  padding: 10px;
-} */
-
 .dashboard-nav {
   display: flex;
   justify-content: space-around;
 }
 
 .dashboard-nav button {
-  background-color: #444444c1;
+  background-color: #474747e2;
   color: white;
-  border: none;
-  padding: 10px 20px;
+  border-radius: 10px;
+  border: none  ;
+  width: 150px;
+  padding: 20px;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
 .dashboard-nav button:hover {
-  background-color: #555;
+  background-color: #9d9d9de2;
 }
 
 .dashboard-nav a {

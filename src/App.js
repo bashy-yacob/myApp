@@ -10,11 +10,10 @@ import AlbumDetailPage from './components/AlbumDetailPage/AlbumDetailPage';
 import LandingPage from './components/LandingPage/LandingPage';
 import InfoPage from './components/InfoPage/InfoPage';
 import Dashboard from './components/Dashboard/Dashboard';
+import NotFoundPage from './components/NotFoundPage/NotFoundPage';
 
 function App() {
   const [user, setUser] = useState(() => JSON.parse(localStorage.getItem('user')));
-  const NotFound = () => <div className="content">404 - Page Not Found</div>;
-
   const handleLogout = () => {
     localStorage.removeItem('user');
     setUser(null);
@@ -39,9 +38,9 @@ function App() {
               <Route path="todos" element={<TodosPage />} />
               <Route path="posts" element={<PostsPage />} />
               <Route path="albums" element={<AlbomsPage />} />
-              <Route path="albums/:albumId/potos" element={<AlbumDetailPage />} />
+              <Route path="albums/:albumId/photos" element={<AlbumDetailPage />} />
             </Route>
-            <Route path="*" element={<NotFound />} />
+            <Route path="*" element={<NotFoundPage />} />
           </>
         )}
       </Routes>

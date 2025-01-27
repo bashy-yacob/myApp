@@ -297,9 +297,13 @@ const PostsPage = () => {
             ) : (
               <div>
                 <span>{post.id} - {post.title}</span>
+                {post.userId === Number(userId) && (
+                  <>
+                    <button onClick={() => startEditing(post.id, post.title, post.body)}>Edit</button>
+                    <button onClick={() => handleDeletePost(post.id)}>Delete</button>
+                  </>
+                )}
                 <button onClick={() => handleSelectPost(post.id)}>Show information</button>
-                <button onClick={() => startEditing(post.id, post.title, post.body)}>Edit</button>
-                <button onClick={() => handleDeletePost(post.id)}>Delete</button>
                 {selectedPostId === post.id && (
                   <div className="selected-post">
                     <p>{post.body}</p>

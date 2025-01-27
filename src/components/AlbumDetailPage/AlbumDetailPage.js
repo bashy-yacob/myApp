@@ -7,31 +7,34 @@ const AlbumDetailPage = () => {
   const [photos, setPhotos] = useState([]);
   const [newPhotoUrl, setNewPhotoUrl] = useState('');
   const [newPhotoTitle, setNewPhotoTitle] = useState('');
+  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
-    const fetchPhotos = async () => {
-      try {
-        const response = await fetch(`http://localhost:5010/photos?albumId=${albumId}`);
-        if (response.ok) {
-          const data = await response.json();
-          setPhotos(data);
-        }
-      } catch (error) {
-        console.error('Error fetching photos:', error);
-      }
-    };
-
     fetchPhotos();
-  }, [albumId]);
+  }, [albumId, page]);
 
-  const addPhoto = async () => {
+  const fetchPhotos = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(`http://localhost:5010/photos?albumId=${albumId}&_page=${page}&_limit=10`);
+      const data = await response.json();
+      setPhotos(prevPhotos => [...prevPhotos, ...data]);
+      setLoading(false);
+    } catch (error) {
+      setError('Error fetching photos: ' + error.message);
+      setLoading(false);
+    }
+  };
+
+  const handleAddPhoto = async () => {
     if (!newPhotoUrl || !newPhotoTitle) return;
 
     const newPhoto = {
       albumId: Number(albumId),
-      title: newPhotoTitle,
       url: newPhotoUrl,
+      title: newPhotoTitle,
       thumbnailUrl: newPhotoUrl,
     };
 
@@ -55,14 +58,14 @@ const AlbumDetailPage = () => {
     }
   };
 
-  const deletePhoto = async (id) => {
+  const handleDeletePhoto = async (photoId) => {
     try {
-      const response = await fetch(`http://localhost:5010/photos/${id}`, {
+      const response = await fetch(`http://localhost:5010/photos/${photoId}`, {
         method: 'DELETE',
       });
 
       if (response.ok) {
-        setPhotos(photos.filter(photo => photo.id !== id));
+        setPhotos(photos.filter(photo => photo.id !== photoId));
       }
     } catch (error) {
       console.error('Error deleting photo:', error);
@@ -71,7 +74,19 @@ const AlbumDetailPage = () => {
 
   return (
     <div className="album-detail-page">
-      <h1>Album {albumId}</h1>
+      <h1>Album Details</h1>
+      {error && <div className="error">{error}</div>}
+      <div className="photos-container">
+        {photos.map(photo => (
+          <div key={photo.id} className="photo-item">
+            <img src={photo.thumbnailUrl} alt={photo.title} />
+            <p>{photo.title}</p>
+            <button onClick={() => handleDeletePhoto(photo.id)}>Delete</button>
+          </div>
+        ))}
+      </div>
+      {loading && <div>Loading...</div>}
+      <button onClick={() => setPage(prevPage => prevPage + 1)}>Load More</button>
       <div className="add-photo">
         <input
           type="text"
@@ -85,18 +100,8 @@ const AlbumDetailPage = () => {
           value={newPhotoTitle}
           onChange={(e) => setNewPhotoTitle(e.target.value)}
         />
-        <button onClick={addPhoto}>Add Photo</button>
+        <button onClick={handleAddPhoto}>Add Photo</button>
       </div>
-      <div className="photos-container">
-        {photos.map(photo => (
-          <div key={photo.id} className="photo-item">
-            <img src={photo.thumbnailUrl} alt={photo.title} />
-            <p>{photo.title}</p>
-            <button onClick={() => deletePhoto(photo.id)}>Delete</button>
-          </div>
-        ))}
-      </div>
-      {loading && <div>Loading more photos...</div>}
     </div>
   );
 };

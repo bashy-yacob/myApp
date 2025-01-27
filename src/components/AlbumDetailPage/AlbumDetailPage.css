@@ -1,7 +1,7 @@
 .album-detail-page {
   margin: 0;
   padding: 20px;
-  font-family: Arial, sans-serif;
+  font-family: 'Roboto', sans-serif;
   color: #000000;
   background-attachment: fixed;
 }
@@ -10,18 +10,19 @@
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 .add-photo input {
   padding: 10px;
   margin-right: 10px;
   border-radius: 5px;
-  border: 1px solid #ffffff;
+  border: 1px solid #ccc;
   font-size: 1em;
 }
 
 .add-photo button {
-  background-color: #007bff;
+  background-color: #00796b;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -31,7 +32,7 @@
 }
 
 .add-photo button:hover {
-  background-color: #0056b3;
+  background-color: #004d40;
 }
 
 .photos-container {
