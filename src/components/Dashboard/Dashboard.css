@@ -1,0 +1,39 @@
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  .dashboard-header {
+    background-color: #3333339f;
+    color: white;
+    padding: 10px;
+  }
+  
+  .dashboard-nav {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .dashboard-nav button {
+    background-color: #444444c1;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .dashboard-nav button:hover {
+    background-color: #555;
+  }
+
+  .dashboard-nav a {
+    display: block;
+    text-align: left;
+  }
+  
+  .dashboard-content {
+    flex: 1;
+    padding: 20px;
+  }
