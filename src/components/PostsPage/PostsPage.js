@@ -21,11 +21,7 @@ const PostsPage = () => {
   const [showComments, setShowComments] = useState(false);
   const [viewAll, setViewAll] = useState(false);
   const [userEmail, setUserEmail] = useState('');
-  const [commentsVisible, setCommentsVisible] = useState(true);
-
-  const toggleComments = () => {
-    setCommentsVisible(!commentsVisible);
-  };
+  const [showAddPost, setShowAddPost] = useState(false);
 
   useEffect(() => {
     const fetchUserEmail = async () => {
@@ -113,6 +109,7 @@ const PostsPage = () => {
         setPosts([...posts, savedPost]);
         setNewPostTitle('');
         setNewPostContent('');
+        setShowAddPost(false);
       }
     } catch (error) {
       console.error('Error adding post:', error);
@@ -261,7 +258,7 @@ const PostsPage = () => {
 
   return (
     <div className="posts-page">
-      <h1>Posts</h1>
+      <h1 className="posts-title">Posts</h1>
       <div className="search-container">
         <input
           type="text"
@@ -297,65 +294,49 @@ const PostsPage = () => {
             ) : (
               <div>
                 <span>{post.id} - {post.title}</span>
-                {post.userId === Number(userId) && (
-                  <>
-                    <button onClick={() => startEditing(post.id, post.title, post.body)}>Edit</button>
-                    <button onClick={() => handleDeletePost(post.id)}>Delete</button>
-                  </>
-                )}
-                <button onClick={() => handleSelectPost(post.id)}>read more</button>
+                <button onClick={() => handleSelectPost(post.id)}>Select</button>
+                <button onClick={() => startEditing(post.id, post.title, post.body)}>Edit</button>
+                <button onClick={() => handleDeletePost(post.id)}>Delete</button>
                 {selectedPostId === post.id && (
                   <div className="selected-post">
                     <p>{post.body}</p>
-                    {!showComments && (
-                      <button onClick={() => handleShowComments(post.id)}>Show Comments</button>
-                    )}
+                    <button onClick={() => handleShowComments(post.id)}>Show Comments</button>
                     {showComments && (
                       <>
-                        <button onClick={toggleComments}>
-                          {commentsVisible ? 'Hide Comments' : 'Show Comments'}
-                        </button>
-                        {commentsVisible && (
-                          <div className="comments">
-                            <button className="close-comments-button" onClick={toggleComments}>
-                              Close
-                            </button>
-                            <h3>Comments</h3>
-                            <ul className="comments-list">
-                              {comments.map(comment => (
-                                <li key={comment.id} className="comment-item">
-                                  {editingCommentId === comment.id ? (
-                                    <div>
-                                      <textarea
-                                        value={editingCommentContent}
-                                        onChange={(e) => setEditingCommentContent(e.target.value)}
-                                      />
-                                      <button onClick={() => saveEditComment(comment.id)}>Save</button>
-                                      <button onClick={cancelEditingComment}>Cancel</button>
-                                    </div>
-                                  ) : (
-                                    <div>
-                                      <p>{comment.body}</p>
-                                      {comment.email === userEmail && (
-                                        <>
-                                          <button onClick={() => startEditingComment(comment.id, comment.body)}>Edit</button>
-                                          <button onClick={() => handleDeleteComment(comment.id)}>Delete</button>
-                                        </>
-                                      )}
-                                    </div>
+                        <h3>Comments</h3>
+                        <ul className="comments-list">
+                          {comments.map(comment => (
+                            <li key={comment.id} className="comment-item">
+                              {editingCommentId === comment.id ? (
+                                <div>
+                                  <textarea
+                                    value={editingCommentContent}
+                                    onChange={(e) => setEditingCommentContent(e.target.value)}
+                                  />
+                                  <button onClick={() => saveEditComment(comment.id)}>Save</button>
+                                  <button onClick={cancelEditingComment}>Cancel</button>
+                                </div>
+                              ) : (
+                                <div>
+                                  <p>{comment.body}</p>
+                                  {comment.email === userEmail && (
+                                    <>
+                                      <button onClick={() => startEditingComment(comment.id, comment.body)}>Edit</button>
+                                      <button onClick={() => handleDeleteComment(comment.id)}>Delete</button>
+                                    </>
                                   )}
-                                </li>
-                              ))}
-                            </ul>
-                            <input
-                              type="text"
-                              placeholder="Add a comment"
-                              value={newComment}
-                              onChange={(e) => setNewComment(e.target.value)}
-                            />
-                            <button onClick={handleAddComment}>Add Comment</button>
-                          </div>
-                        )}
+                                </div>
+                              )}
+                            </li>
+                          ))}
+                        </ul>
+                        <input
+                          type="text"
+                          placeholder="Add a comment"
+                          value={newComment}
+                          onChange={(e) => setNewComment(e.target.value)}
+                        />
+                        <button onClick={handleAddComment}>Add Comment</button>
                       </>
                     )}
                   </div>
@@ -365,7 +346,8 @@ const PostsPage = () => {
           </li>
         ))}
       </ul>
-      <div className="add-post">
+      {showAddPost && (
+      <div className="add-post-form">
         <input
           type="text"
           placeholder="Post Title"
@@ -378,7 +360,8 @@ const PostsPage = () => {
           onChange={(e) => setNewPostContent(e.target.value)}
         />
         <button onClick={handleAddPost}>Add Post</button>
-      </div>
+      </div>)}
+      <button className="add-post-btn" onClick={() => setShowAddPost(!showAddPost)}>+</button>
     </div>
   );
 };
