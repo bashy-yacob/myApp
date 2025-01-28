@@ -1,85 +1,3 @@
-/* General page styling */
-
-/* Search container styling */
-.search-container {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-.search-input {
-  padding: 10px;
-  width: 300px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-right: 10px;
-}
-
-/* Buttons */
-.btn {
-  padding: 10px 15px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.btn-primary {
-  background-color: #ffffff91;
-  color: #000;
-}
-
-.btn-primary:hover {
-  background-color: #ffffffd9;
-}
-
-.btn-danger {
-  background-color: #dc3545;
-  color: #fff;
-}
-
-.btn-danger:hover {
-  background-color: #a71d2a;
-}
-
-/* Posts container */
-.posts-container {
-  padding: 20px;
-  font-family: Arial, sans-serif;
-  width: 100%;
-  max-width: 900px;
-
-}
-
-.post {
-  margin: 10px;
-  background: #ffffff91;
-  border: 1px solid #ffffff;
-  border-radius: 4px;
-  padding: 15px;
-  transition: box-shadow 0.3s;
-  cursor: pointer;
-}
-
-.post:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.post-selected {
-  border : 3px solid #ffffff;
-}
-
-/* Post details */
-.post-details {
-  margin-top: 10px;
-  border-top: 1px solid #ddd;
-  padding-top: 10px;
-}
-
-.post-details .btn {
-  margin-right: 10px;
-}
-
 .posts-page {
   font-family: Arial, sans-serif;
   display: flex;
@@ -88,51 +6,26 @@
   padding: 40px 20px;
   min-height: 100vh;
   margin: 0;
-  padding: 20px;
   color: #000000;
   background-attachment: fixed;
 }
 
-h1 {
+.posts-title {
+  text-align: left;
+  width: 100%;
+  max-width: 800px;
   font-size: 2.2rem;
   color: #000000;
   margin-bottom: 20px;
 }
 
-.search-bar {
-  margin-bottom: 30px;
-  width: 100%;
-  max-width: 600px;
-}
+/* h1 {
+  font-size: 2.2rem;
+  color: #000000;
+  margin-bottom: 20px;
+} */
 
-.search-bar input {
-  padding: 12px 18px;
-  width: 100%;
-  border-radius: 8px;
-  border: 1px solid #ffffff;
-  font-size: 1rem;
-  outline: none;
-  transition: border-color 0.3s ease;
-}
-
-.search-bar input:focus {
-  border-color: #676464c2;
-}
-/* רשימת פוסטים */
-.posts-list {
-  width: 100%;
-  max-width: 800px;
-  margin-bottom: 30px;
-  list-style-type: none;
-  padding: 0;
-}
-
-.posts-list ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.posts-list li {
+ li {
   background-color: #ffffff91;
   min-height: 100px;
   border-radius: 8px;
@@ -145,23 +38,77 @@ h1 {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.posts-list button {
+ button {
   background-color: #474747e2;
   color: rgb(255, 255, 255);
   border: none;
   margin: 5px;
-  padding: 15px 20px;
+  padding: 8px 20px;
   border-radius: 8px;
   cursor: pointer;
   font-size: 0.9rem;
   transition: background-color 0.3s ease;
 }
 
-.posts-list button:hover {
+button:hover {
   background-color: #000000;
 }
 
-/* הוספת פוסט חדש */
+button.view-all-btn,
+button.view-my-btn,
+button.save-btn,
+button.cancel-btn,
+button.select-btn,
+button.edit-btn,
+button.delete-btn,
+button.show-comments-btn,
+button.add-comment-btn{
+  background-color: #474747e2;
+  color: rgb(255, 255, 255);
+  border: none;
+  margin: 5px;
+  padding: 8px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+.add-post-btn{
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #00796b;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  font-size: 40px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+button.view-all-btn:hover,
+button.view-my-btn:hover,
+button.save-btn:hover,
+button.cancel-btn:hover,
+button.select-btn:hover,
+button.edit-btn:hover,
+button.delete-btn:hover,
+button.show-comments-btn:hover,
+button.add-comment-btn:hover{
+  background-color: #000000;
+}
+button.add-post-btn:hover {
+  background-color: #015e53;
+}
+
+/* Add new post */
 .add-post {
   width: 100%;
   max-width: 700px;
@@ -172,8 +119,8 @@ h1 {
   align-items: center;
 }
 
-.add-post input,
-.add-post textarea {
+.add-post input.add-post-input,
+.add-post textarea.add-post-textarea {
   width: 100%;
   padding: 12px;
   border-radius: 8px;
@@ -182,14 +129,9 @@ h1 {
   font-size: 1rem;
   outline: none;
   resize: vertical;
-  max-width: 800px;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
 }
 
-.add-post textarea {
+.add-post textarea.add-post-textarea {
   height: 150px;
 }
 
@@ -202,21 +144,83 @@ h1 {
   cursor: pointer;
   font-size: 1rem;
   transition: background-color 0.3s ease;
-  padding: 10px 20px;
-  background-color: #00796b;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
 .add-post button:hover {
   background-color: #000000;
-  background-color: #004d40;
 }
 
-/* פוסט נבחר */
+/* Add post form and button */
+.add-post-form {
+  position: fixed;
+  bottom: 100px;
+  right: 20px;
+  width: 300px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add-post-input,
+.add-post-textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-bottom: 15px;
+  font-size: 1rem;
+  outline: none;
+  resize: vertical;
+}
+
+.add-post-textarea {
+  height: 100px;
+}
+
+.add-post-submit-btn {
+  background-color: #474747e2;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.add-post-submit-btn:hover {
+  background-color: #000000;
+}
+
+.add-post-toggle-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #00796b;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  font-size: 40px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.add-post-toggle-btn:hover {
+  background-color: #004d40;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Selected post */
 .selected-post {
   width: 100%;
   max-width: 800px;
@@ -238,7 +242,22 @@ h1 {
   color: #555;
 }
 
-/* תגובות לפוסט */
+.selected-post button {
+  background-color: #444444;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
+
+.selected-post button:hover {
+  background-color: #000000;
+}
+
+/* Comments section */
 .comments {
   margin-top: 30px;
 }
@@ -261,22 +280,7 @@ h1 {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-.comments button {
-  background-color: #dc3545;
-  color: white;
-  border: none;
-  padding: 8px 15px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: background-color 0.3s ease;
-}
-
-.comments button:hover {
-  background-color: #c82333;
-}
-
-.comments textarea {
+.comments textarea.comment-textarea {
   width: 100%;
   padding: 12px;
   border-radius: 8px;
@@ -285,42 +289,6 @@ h1 {
   font-size: 1rem;
   outline: none;
   resize: vertical;
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
-  .posts-page {
-    padding: 20px 10px;
-  }
-
-  .search-bar input,
-  .add-post input,
-  .add-post textarea,
-  .selected-post {
-    width: 100%;
-  }
-}
-.selected-post button {
-  background-color: #444444;
-  color: white;
-  border: none;
-  padding: 8px 15px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  margin-top: 10px;
-}
-
-.selected-post button:hover {
-  background-color: #000000;
-}
-
-.comments-section {
-  margin-top: 10px;
-  padding: 10px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  border: 1px solid #ddd;
 }
 
 .comments-list {
@@ -337,79 +305,8 @@ h1 {
   border-bottom: none;
 }
 
-.posts-title {
-  text-align: left;
-  width: 100%;
-  max-width: 800px;
-  font-size: 2.2rem;
-  color: #000000;
-  margin-bottom: 20px;
-}
-
-.search-container input {
-  padding: 10px;
-  width: 300px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.post-item {
-  background-color: #ffffffa8;
-  border: 1px solid #ffffff;
-  border-radius: 5px;
-  padding: 20px;
-  margin-bottom: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.post-title {
-  font-size: 1.5em;
-  margin-bottom: 10px;
-}
-
-.post-body {
-  font-size: 1em;
-  margin-bottom: 10px;
-}
-
-.delete-button {
-  align-self: flex-end;
-  background-color: #ff0000;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.delete-button:hover {
-  background-color: #cc0000;
-}
-
 /* Add post button in bottom right corner */
 .add-post-btn {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: #00796b;
-  color: white;
-  border: none;
-  padding: 15px 20px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 1.5rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.add-post-btn:hover {
-  background-color: #004d40;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-}
-
-.add-post-form {
   position: fixed;
   bottom: 20px;
   right: 20px;
@@ -428,27 +325,40 @@ h1 {
   transition: background-color 0.3s ease;
 }
 
-.add-post-form input,
-.add-post-form textarea {
+.add-post-btn:hover {
+  background-color: #004d40;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .posts-page {
+    padding: 20px 10px;
+  }
+
+  .search-bar input,
+  .add-post input,
+  .add-post textarea,
+  .selected-post {
+    width: 100%;
+  }
+}
+
+.search-container {
+  text-align: left;
   width: 100%;
   max-width: 800px;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
 }
 
-.add-post-form button {
-  padding: 10px 20px;
-  background-color: #00796b;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-bottom: 10px;
+.search-container input.search-input {
+  padding: 8px 18px;
+  border-radius: 8px;
+  border: 1px solid #ffffff;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease;
 }
 
-.add-post-form button:hover {
-  background-color: #004d40;
+.search-container input.search-input:focus {
+  border-color: #676464c2;
 }

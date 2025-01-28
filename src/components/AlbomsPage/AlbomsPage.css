@@ -15,13 +15,6 @@
   max-width: 900px;
 }
 
-
-.search-container {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
 .search-container input,
 .search-container select {
   padding: 5px;

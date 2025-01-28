@@ -265,13 +265,14 @@ const PostsPage = () => {
           placeholder="Search..."
           value={search}
           onChange={handleSearch}
+          className="search-input"
         />
         <select value={searchCriterion} onChange={handleSearchCriterionChange}>
           <option value="id">ID</option>
           <option value="title">Title</option>
         </select>
-        <button onClick={() => setViewAll(true)}>View All Posts</button>
-        <button onClick={() => setViewAll(false)}>View My Posts</button>
+        <button onClick={() => setViewAll(true)} className="view-all-btn">View All Posts</button>
+        <button onClick={() => setViewAll(false)} className="view-my-btn">View My Posts</button>
       </div>
       {error && <div className="error">{error}</div>}
       <ul className="posts-list">
@@ -335,8 +336,9 @@ const PostsPage = () => {
                           placeholder="Add a comment"
                           value={newComment}
                           onChange={(e) => setNewComment(e.target.value)}
+                          className="comment-textarea"
                         />
-                        <button onClick={handleAddComment}>Add Comment</button>
+                        <button onClick={handleAddComment} className="add-comment-btn">Add Comment</button>
                       </>
                     )}
                   </div>
@@ -353,16 +355,18 @@ const PostsPage = () => {
             placeholder="Post Title"
             value={newPostTitle}
             onChange={(e) => setNewPostTitle(e.target.value)}
+            className="add-post-input"
           />
           <textarea
             placeholder="Post Content"
             value={newPostContent}
             onChange={(e) => setNewPostContent(e.target.value)}
+            className="add-post-textarea"
           />
-          <button onClick={handleAddPost}>Add Post</button>
+          <button onClick={handleAddPost} className="add-post-submit-btn">Add Post</button>
         </div>
       )}
-      <button className="add-post-btn" onClick={() => setShowAddPost(!showAddPost)}>+</button>
+      <button className="add-post-toggle-btn" onClick={() => setShowAddPost(!showAddPost)}>+</button>
     </div>
   );
 };
