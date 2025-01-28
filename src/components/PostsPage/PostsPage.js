@@ -347,20 +347,21 @@ const PostsPage = () => {
         ))}
       </ul>
       {showAddPost && (
-      <div className="add-post-form">
-        <input
-          type="text"
-          placeholder="Post Title"
-          value={newPostTitle}
-          onChange={(e) => setNewPostTitle(e.target.value)}
-        />
-        <textarea
-          placeholder="Post Content"
-          value={newPostContent}
-          onChange={(e) => setNewPostContent(e.target.value)}
-        />
-        <button onClick={handleAddPost}>Add Post</button>
-      </div>)}
+        <div className="add-post-form">
+          <input
+            type="text"
+            placeholder="Post Title"
+            value={newPostTitle}
+            onChange={(e) => setNewPostTitle(e.target.value)}
+          />
+          <textarea
+            placeholder="Post Content"
+            value={newPostContent}
+            onChange={(e) => setNewPostContent(e.target.value)}
+          />
+          <button onClick={handleAddPost}>Add Post</button>
+        </div>
+      )}
       <button className="add-post-btn" onClick={() => setShowAddPost(!showAddPost)}>+</button>
     </div>
   );
