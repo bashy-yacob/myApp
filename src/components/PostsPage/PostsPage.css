@@ -52,10 +52,10 @@ button.read-more-btn,
 button.edit-btn,
 button.delete-btn,
 button.show-comments-btn,
-button.add-comment-btn{
-  background-color: #474747e2;
+button.add-comment-btn {
+  background-color: #d5d5d5e2;
+  border: 1px solid rgb(108, 108, 108);
   color: rgb(255, 255, 255);
-  border: none;
   margin: 5px;
   padding: 8px 20px;
   border-radius: 8px;
@@ -63,7 +63,10 @@ button.add-comment-btn{
   font-size: 0.9rem;
   transition: background-color 0.3s ease;
 }
+button.delete-btn:hover {
+  background-color: #f86161;
 
+}
 .add-post-btn{
   position: fixed;
   bottom: 20px;
@@ -89,10 +92,9 @@ button.save-btn:hover,
 button.cancel-btn:hover,
 button.read-more-btn:hover,
 button.edit-btn:hover,
-button.delete-btn:hover,
 button.show-comments-btn:hover,
 button.add-comment-btn:hover{
-  background-color: #000000;
+  background-color: #6c6c6c;
 }
 button.add-post-btn:hover {
   background-color: #015e53;
