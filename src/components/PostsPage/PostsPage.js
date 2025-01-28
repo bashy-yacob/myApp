@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import './PostsPage.css';
+import { API_BASE_URL } from '../../config/config';
 
 const PostsPage = () => {
   const { userId } = useParams();
@@ -23,6 +24,7 @@ const PostsPage = () => {
   const [userEmail, setUserEmail] = useState('');
   const [showAddPost, setShowAddPost] = useState(false);
   const [sortCriterion, setSortCriterion] = useState('id');
+  const [allPosts, setAllPosts] = useState([]); // Add this new state
 
   useEffect(() => {
     const fetchUserEmail = () => {
@@ -41,32 +43,35 @@ const PostsPage = () => {
   }, [userId]);
 
   useEffect(() => {
-    if (viewAll) {
-      viewAllPosts();
-    } else {
-      viewUserPosts();
-    }
-  }, [userId, viewAll]);
+    const fetchAllPosts = async () => {
+      try {
+        console.log('Attempting to fetch from:', `${API_BASE_URL}/posts`);
+        const response = await fetch(`${API_BASE_URL}/posts`);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+          throw new Error('Server did not return JSON');
+        }
 
-  const viewUserPosts = async () => {
-    try {
-      const response = await fetch(`http://localhost:5010/posts?userId=${userId}`);
-      const data = await response.json();
-      setPosts(data);
-    } catch (error) {
-      setError('Error fetching posts: ' + error.message);
-    }
-  };
+        const data = await response.json();
+        console.log('Received data:', data);
+        setAllPosts(data);
+      } catch (error) {
+        console.error('Detailed error:', error);
+        if (error.message.includes('Failed to fetch')) {
+          setError('השרת לא זמין. אנא בדוק שהשרת פועל.');
+        } else {
+          setError(`שגיאה בטעינת הנתונים: ${error.message}`);
+        }
+      }
+    };
 
-  const viewAllPosts = async () => {
-    try {
-      const response = await fetch(`http://localhost:5010/posts`);
-      const data = await response.json();
-      setPosts(data);
-    } catch (error) {
-      setError('Error fetching posts: ' + error.message);
-    }
-  };
+    fetchAllPosts();
+  }, []); // Only fetch once when component mounts
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
@@ -80,8 +85,12 @@ const PostsPage = () => {
     setSortCriterion(e.target.value);
   };
 
+  const displayedPosts = useMemo(() => {
+    return viewAll ? allPosts : allPosts.filter(post => post.userId === Number(userId));
+  }, [allPosts, viewAll, userId]);
+
   const filteredPosts = useMemo(() => {
-    return posts.filter(post => {
+    return displayedPosts.filter(post => {
       if (searchCriterion === 'id') {
         return post.id.toString().includes(search);
       } else if (searchCriterion === 'title') {
@@ -89,7 +98,7 @@ const PostsPage = () => {
       }
       return false;
     });
-  }, [posts, search, searchCriterion]);
+  }, [displayedPosts, search, searchCriterion]);
 
   const sortedPosts = useMemo(() => {
     const sorted = [...filteredPosts];
@@ -111,7 +120,7 @@ const PostsPage = () => {
     };
 
     try {
-      const response = await fetch('http://localhost:5010/posts', {
+      const response = await fetch(`${API_BASE_URL}/posts`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -121,7 +130,7 @@ const PostsPage = () => {
 
       if (response.ok) {
         const savedPost = await response.json();
-        setPosts([...posts, savedPost]);
+        setAllPosts([...allPosts, savedPost]);
         setNewPostTitle('');
         setNewPostContent('');
         setShowAddPost(false);
@@ -133,12 +142,12 @@ const PostsPage = () => {
 
   const handleDeletePost = async (postId) => {
     try {
-      const response = await fetch(`http://localhost:5010/posts/${postId}`, {
+      const response = await fetch(`${API_BASE_URL}/posts/${postId}`, {
         method: 'DELETE',
       });
 
       if (response.ok) {
-        setPosts(posts.filter(post => post.id !== postId));
+        setAllPosts(allPosts.filter(post => post.id !== postId));
       }
     } catch (error) {
       console.error('Error deleting post:', error);
@@ -158,14 +167,14 @@ const PostsPage = () => {
   };
 
   const saveEdit = async (id) => {
-    const updatedPosts = posts.map(post =>
+    const updatedPosts = allPosts.map(post =>
       post.id === id ? { ...post, title: editingTitle, body: editingContent } : post
     );
 
     const updatedPost = updatedPosts.find(post => post.id === id);
 
     try {
-      const response = await fetch(`http://localhost:5010/posts/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/posts/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -174,7 +183,7 @@ const PostsPage = () => {
       });
 
       if (response.ok) {
-        setPosts(updatedPosts);
+        setAllPosts(updatedPosts);
         cancelEditing();
       }
     } catch (error) {
@@ -193,7 +202,7 @@ const PostsPage = () => {
       return;
     }
     try {
-      const response = await fetch(`http://localhost:5010/comments?postId=${postId}`);
+      const response = await fetch(`${API_BASE_URL}/comments?postId=${postId}`);
       if (response.ok) {
         const data = await response.json();
         setComments(data);
@@ -210,7 +219,7 @@ const PostsPage = () => {
     const comment = { postId: selectedPostId, body: newComment, userId: Number(userId), email: userEmail };
 
     try {
-      const response = await fetch(`http://localhost:5010/comments`, {
+      const response = await fetch(`${API_BASE_URL}/comments`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -246,7 +255,7 @@ const PostsPage = () => {
     const updatedComment = updatedComments.find(comment => comment.id === id);
 
     try {
-      const response = await fetch(`http://localhost:5010/comments/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/comments/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -265,7 +274,7 @@ const PostsPage = () => {
 
   const handleDeleteComment = async (commentId) => {
     try {
-      const response = await fetch(`http://localhost:5010/comments/${commentId}`, {
+      const response = await fetch(`${API_BASE_URL}/comments/${commentId}`, {
         method: 'DELETE',
       });
 

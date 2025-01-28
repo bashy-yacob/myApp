@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../../context/UserContext';
+import { API_BASE_URL } from '../../config/config';
 import './RegisterPage.css';
 
 const RegisterPage = () => {
   const navigate = useNavigate();
+  const { setUser } = useContext(UserContext);
   // Registration states
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -29,19 +32,19 @@ const RegisterPage = () => {
     e.preventDefault();
 
     if (password !== passwordVerify) {
-      setError('סיסמאות אינן תואמות!');
+      setError('Passwords do not match!');
       return;
     }
 
     try {
-      const response = await fetch(`http://localhost:5010/users?username=${username}`);
+      const response = await fetch(`${API_BASE_URL}/users?username=${username}`);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const users = await response.json();
       const userExists = users.length > 0;
       if (userExists) {
-        setError('שם המשתמש כבר קיים!');
+        setError('Username already exists!');
         return;
       }
       setIsValidated(true);
@@ -49,9 +52,9 @@ const RegisterPage = () => {
     } catch (err) {
       console.error('Error details:', err);
       if (err.message.includes('Failed to fetch')) {
-        setError('לא ניתן להתחבר לשרת. אנא בדוק שהשרת פעיל');
+        setError('Cannot connect to server. Please check if server is running');
       } else {
-        setError(`שגיאה בבדיקת המשתמש: ${err.message}`);
+        setError(`Error checking user: ${err.message}`);
       }
     }
   };
@@ -83,7 +86,7 @@ const RegisterPage = () => {
     };
 
     try {
-      const response = await fetch('http://localhost:5010/users', {
+      const response = await fetch(`${API_BASE_URL}/users`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -93,126 +96,136 @@ const RegisterPage = () => {
       
       if (response.ok) {
         const savedUser = await response.json();
-        const itemToLocalStorage = {
-          
-          name : savedUser.username,
-          email :savedUser.email,
-          id :savedUser.id
-
-        }
-        localStorage.setItem('user', JSON.stringify(itemToLocalStorage));
-        navigate(`/users/${savedUser.id}/home`); // Changed from '/home' to '/landing'
+        const userInfo = {
+          name: savedUser.username,
+          email: savedUser.email,
+          id: savedUser.id
+        };
+        localStorage.setItem('user', JSON.stringify(userInfo));
+        setUser(userInfo); // עדכון ה-context
+        navigate(`/users/${savedUser.id}/home`);
       }
     } catch (err) {
-      setError('שגיאה ברישום המשתמש');
+      setError('Registration failed: ' + err.message);
     }
   };
 
   return (
     <div className="register-page">
       {!isValidated ? (
-        // First step - username and password validation
         <form onSubmit={handleFirstStepValidation}>
-          <h2>Register</h2>
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder="Username"
-            required
-          />
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
-            required
-          />
-          <input
-            type="password"
-            value={passwordVerify}
-            onChange={(e) => setPasswordVerify(e.target.value)}
-            placeholder="Verify Password"
-            required
-          />
+          <h2>Registration</h2>
+          <section>
+            <input
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Username"
+              required
+            />
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
+              required
+            />
+            <input
+              type="password"
+              value={passwordVerify}
+              onChange={(e) => setPasswordVerify(e.target.value)}
+              placeholder="Verify Password"
+              required
+            />
+          </section>
           <button type="submit">Next</button>
         </form>
       ) : (
-        // Second step - user details
         <form onSubmit={handleCompleteRegistration}>
-          <h2>Complete Your Details</h2>
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Full Name"
-            required
-          />
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email"
-            required
-          />
-          <input
-            type="text"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            placeholder="Phone"
-            required
-          />
-          <h3>Address</h3>
-          <input
-            type="text"
-            value={street}
-            onChange={(e) => setStreet(e.target.value)}
-            placeholder="Street"
-            required
-          />
-          <input
-            type="text"
-            value={suite}
-            onChange={(e) => setSuite(e.target.value)}
-            placeholder="Suite"
-            required
-          />
-          <input
-            type="text"
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
-            placeholder="City"
-            required
-          />
-          <input
-            type="text"
-            value={zipcode}
-            onChange={(e) => setZipcode(e.target.value)}
-            placeholder="Zipcode"
-            required
-          />
-          <h3>Company</h3>
-          <input
-            type="text"
-            value={companyName}
-            onChange={(e) => setCompanyName(e.target.value)}
-            placeholder="Company Name"
-            required
-          />
-          <input
-            type="text"
-            value={catchPhrase}
-            onChange={(e) => setCatchPhrase(e.target.value)}
-            placeholder="Company Catch Phrase"
-            required
-          />
-          <input
-            type="text"
-            value={bs}
-            onChange={(e) => setBs(e.target.value)}
-            placeholder="Business Service"
-            required
-          />
+          <h2>Complete Details</h2>
+          
+          <section>
+            <h3>Personal Information</h3>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Full Name"
+              required
+            />
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email"
+              required
+            />
+            <input
+              type="text"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              placeholder="Phone"
+              required
+            />
+          </section>
+
+          <section>
+            <h3>Address</h3>
+            <input
+              type="text"
+              value={street}
+              onChange={(e) => setStreet(e.target.value)}
+              placeholder="Street"
+              required
+            />
+            <input
+              type="text"
+              value={suite}
+              onChange={(e) => setSuite(e.target.value)}
+              placeholder="Suite"
+              required
+            />
+            <input
+              type="text"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+              placeholder="City"
+              required
+            />
+            <input
+              type="text"
+              value={zipcode}
+              onChange={(e) => setZipcode(e.target.value)}
+              placeholder="Zipcode"
+              required
+            />
+          </section>
+
+          <section>
+            <h3>Company</h3>
+            <input
+              type="text"
+              value={companyName}
+              onChange={(e) => setCompanyName(e.target.value)}
+              placeholder="Company Name"
+              required
+            />
+            <input
+              type="text"
+              value={catchPhrase}
+              onChange={(e) => setCatchPhrase(e.target.value)}
+              placeholder="Catch Phrase"
+              required
+            />
+            <input
+              type="text"
+              value={bs}
+              onChange={(e) => setBs(e.target.value)}
+              placeholder="Business Service"
+              required
+            />
+          </section>
+
           <button type="submit">Complete Registration</button>
         </form>
       )}

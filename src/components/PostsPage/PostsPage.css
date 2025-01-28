@@ -216,7 +216,7 @@ button.add-post-btn:hover {
 
 /* Selected post */
 .selected-post {
-  width: 100%;
+  /* width: 100%; */
  
   padding: 30px;
   border-radius: 8px;

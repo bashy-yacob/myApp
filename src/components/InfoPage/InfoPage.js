@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import './InfoPage.css';
+import { API_BASE_URL } from '../../config/config';
 
 const InfoPage = () => {
   const { userId } = useParams();
@@ -11,7 +12,7 @@ const InfoPage = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch(`http://localhost:5010/users/${userId}`);
+        const response = await fetch(`${API_BASE_URL}/users/${userId}`);
         if (!response.ok) throw new Error('Failed to fetch user data');
         const data = await response.json();
         setUserData(data);
