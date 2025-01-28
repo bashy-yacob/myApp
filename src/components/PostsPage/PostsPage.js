@@ -22,17 +22,18 @@ const PostsPage = () => {
   const [viewAll, setViewAll] = useState(false);
   const [userEmail, setUserEmail] = useState('');
   const [showAddPost, setShowAddPost] = useState(false);
+  const [sortCriterion, setSortCriterion] = useState('id');
 
   useEffect(() => {
-    const fetchUserEmail = async () => {
+    const fetchUserEmail = () => {
       try {
-        const response = await fetch(`http://localhost:5010/users/${userId}`);
-        if (response.ok) {
-          const data = await response.json();
-          setUserEmail(data.email);
+        const userData = localStorage.getItem('user');
+        if (userData) {
+          const user = JSON.parse(userData);
+          setUserEmail(user.email);
         }
       } catch (error) {
-        console.error('Error fetching user email:', error);
+        console.error('Error fetching user email from local storage:', error);
       }
     };
 
@@ -75,6 +76,10 @@ const PostsPage = () => {
     setSearchCriterion(e.target.value);
   };
 
+  const handleSortCriterionChange = (e) => {
+    setSortCriterion(e.target.value);
+  };
+
   const filteredPosts = useMemo(() => {
     return posts.filter(post => {
       if (searchCriterion === 'id') {
@@ -85,6 +90,16 @@ const PostsPage = () => {
       return false;
     });
   }, [posts, search, searchCriterion]);
+
+  const sortedPosts = useMemo(() => {
+    const sorted = [...filteredPosts];
+    if (sortCriterion === 'id') {
+      sorted.sort((a, b) => a.id - b.id);
+    } else if (sortCriterion === 'title') {
+      sorted.sort((a, b) => a.title.localeCompare(b.title));
+    }
+    return sorted;
+  }, [filteredPosts, sortCriterion]);
 
   const handleAddPost = async () => {
     if (!newPostTitle || !newPostContent) return;
@@ -179,9 +194,11 @@ const PostsPage = () => {
     }
     try {
       const response = await fetch(`http://localhost:5010/comments?postId=${postId}`);
-      const data = await response.json();
-      setComments(data);
-      setShowComments(true);
+      if (response.ok) {
+        const data = await response.json();
+        setComments(data);
+        setShowComments(true);
+      }
     } catch (error) {
       console.error('Error fetching comments:', error);
     }
@@ -275,12 +292,16 @@ const PostsPage = () => {
           <option value="id">ID</option>
           <option value="title">Title</option>
         </select>
-        <button onClick={() => setViewAll(true)} className="view-all-btn">View All Posts</button>
-        <button onClick={() => setViewAll(false)} className="view-my-btn">View My Posts</button>
+        <select value={sortCriterion} onChange={handleSortCriterionChange}>
+          <option value="id">Sort by ID</option>
+          <option value="title">Sort by Title</option>
+        </select>
+        <button onClick={() => setViewAll(true)} className="view-all-btn">All Posts</button>
+        <button onClick={() => setViewAll(false)} className="view-my-btn">My Posts</button>
       </div>
       {error && <div className="error">{error}</div>}
       <ul className="posts-list">
-        {filteredPosts.map(post => (
+        {sortedPosts.map(post => (
           <li key={post.id} className={`post-item ${selectedPostId === post.id ? 'selected' : ''}`}>
             {editingPostId === post.id ? (
               <div>
@@ -299,8 +320,8 @@ const PostsPage = () => {
             ) : (
               <div>
                 <div>
-                <span className="post-id">{post.id}</span>
-                <span className="post-title">{post.title}</span>
+                  <span className="post-id">{post.id}</span>
+                  <span className="post-title">{post.title}</span>
                 </div>
                 <div className="button-container">
                   <button onClick={() => handleSelectPost(post.id)} className="read-more-btn">read more</button>

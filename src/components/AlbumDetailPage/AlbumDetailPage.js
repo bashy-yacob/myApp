@@ -10,6 +10,7 @@ const AlbumDetailPage = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
+  const [showAddPhoto, setShowAddPhoto] = useState(false);
 
   useEffect(() => {
     fetchPhotos();
@@ -87,21 +88,25 @@ const AlbumDetailPage = () => {
       </div>
       {loading && <div>Loading...</div>}
       <button onClick={() => setPage(prevPage => prevPage + 1)}>Load More</button>
-      <div className="add-photo">
-        <input
-          type="text"
-          placeholder="Photo URL"
-          value={newPhotoUrl}
-          onChange={(e) => setNewPhotoUrl(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Photo Title"
-          value={newPhotoTitle}
-          onChange={(e) => setNewPhotoTitle(e.target.value)}
-        />
-        <button onClick={handleAddPhoto}>Add Photo</button>
-      </div>
+      
+      {showAddPhoto && (
+        <div className="add-photo-form">
+          <input
+            type="text"
+            placeholder="Photo URL"
+            value={newPhotoUrl}
+            onChange={(e) => setNewPhotoUrl(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Photo Title"
+            value={newPhotoTitle}
+            onChange={(e) => setNewPhotoTitle(e.target.value)}
+          />
+          <button onClick={handleAddPhoto} className="add-photo-submit-btn">Add Photo</button>
+        </div>
+      )}
+      <button className="add-photo-toggle-btn" onClick={() => setShowAddPhoto(!showAddPhoto)}>+</button>
     </div>
   );
 };

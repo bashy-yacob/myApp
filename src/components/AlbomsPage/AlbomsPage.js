@@ -10,6 +10,7 @@ const AlbomsPage = () => {
   const [searchCriterion, setSearchCriterion] = useState('id');
   const [newAlbumTitle, setNewAlbumTitle] = useState('');
   const [error, setError] = useState(null);
+  const [showAddAlbum, setShowAddAlbum] = useState(false);
 
   useEffect(() => {
     fetchAlbums();
@@ -18,8 +19,10 @@ const AlbomsPage = () => {
   const fetchAlbums = async () => {
     try {
       const response = await fetch(`http://localhost:5010/albums?userId=${userId}`);
-      const data = await response.json();
-      setAlbums(data);
+      if (response.ok) {
+        const data = await response.json();
+        setAlbums(data);
+      }
     } catch (error) {
       setError('Error fetching albums: ' + error.message);
     }
@@ -93,20 +96,24 @@ const AlbomsPage = () => {
       {error && <div className="error">{error}</div>}
       <ul className="albums-list">
         {filteredAlbums.map(album => (
-          <li key={album.id} onClick={() => handleNavigateToAlbum(album.id)}>
-            {album.id} - {album.title}
+          <li key={album.id}>
+            <span>{album.id} - {album.title}</span>
+            <button onClick={() => handleNavigateToAlbum(album.id)} className="open-album-btn">Open Album</button>
           </li>
         ))}
       </ul>
-      <div className="add-album">
-        <input
-          type="text"
-          placeholder="Album Title"
-          value={newAlbumTitle}
-          onChange={(e) => setNewAlbumTitle(e.target.value)}
-        />
-        <button onClick={handleAddAlbum}>Add Album</button>
-      </div>
+      {showAddAlbum && (
+        <div className="add-album-form">
+          <input
+            type="text"
+            placeholder="Album Title"
+            value={newAlbumTitle}
+            onChange={(e) => setNewAlbumTitle(e.target.value)}
+          />
+          <button onClick={handleAddAlbum}>Add Album</button>
+        </div>
+      )}
+      <button className="add-album-toggle-btn" onClick={() => setShowAddAlbum(!showAddAlbum)}>+</button>
     </div>
   );
 };

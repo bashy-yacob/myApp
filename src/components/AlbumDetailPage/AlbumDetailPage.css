@@ -3,7 +3,7 @@
   padding: 20px;
   font-family: 'Roboto', sans-serif;
   color: #000000;
-  background-attachment: fixed;
+  /* background-attachment: fixed; */
 }
 
 .add-photo {
@@ -68,4 +68,67 @@
 
 .photo-item button:hover {
   background-color: #cc0000;
+}
+
+.add-photo-form {
+  position: fixed;
+  bottom: 100px;
+  right: 20px;
+  width: 300px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add-photo-form input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-bottom: 15px;
+  font-size: 1rem;
+  outline: none;
+}
+
+.add-photo-toggle-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #00796b;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  font-size: 40px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.add-photo-toggle-btn:hover {
+  background-color: #004d40;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.add-photo-submit-btn {
+  background-color: #00796b;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.add-photo-submit-btn:hover {
+  background-color: #004d40;
 }

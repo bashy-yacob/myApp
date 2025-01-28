@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import LoginPage from './components/LoginPage/LoginPage';
 import RegisterPage from './components/RegisterPage/RegisterPage';
+import UserDetailsPage from './components/UserDetailsPage/UserDetailsPage';
 import HomePage from './components/HomePage/HomePage';
 import TodosPage from './components/TodosPage/TodosPage';
 import PostsPage from './components/PostsPage/PostsPage';
@@ -31,12 +32,13 @@ function App() {
               <Route path="/" element={<LandingPage />} />
               <Route path="/login" element={<LoginPage onLogin={setUser} />} />
               <Route path="/register" element={<RegisterPage />} />
-              <Route path="*" element={<Navigate to="/login" />} />
+              <Route path="*" element={<Navigate to="/" />} />
             </>
           ) : (
             <>
               <Route path="/" element={<Navigate to={`/users/${user.id}/home`} />} />
-              <Route path="/users/:userId/*" element={<Dashboard user={user} onLogout={handleLogout} />}>
+            {/* <Route path="/users/:userId/registerDetails" element={<UserDetailsPage />} /> */}
+              <Route path="/users/:userId/" element={<Dashboard user={user} onLogout={handleLogout} />}>
                 <Route path="home" element={<HomePage user={user} />} />
                 <Route path="home/info" element={<InfoPage user={user} />} />
                 <Route path="todos" element={<TodosPage />} />
