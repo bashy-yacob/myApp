@@ -173,6 +173,10 @@ const PostsPage = () => {
   };
 
   const handleShowComments = async (postId) => {
+    if (selectedPostId === postId && showComments) {
+      setShowComments(false);
+      return;
+    }
     try {
       const response = await fetch(`http://localhost:5010/comments?postId=${postId}`);
       const data = await response.json();
@@ -289,19 +293,28 @@ const PostsPage = () => {
                   value={editingContent}
                   onChange={(e) => setEditingContent(e.target.value)}
                 />
-                <button onClick={() => saveEdit(post.id)}>Save</button>
-                <button onClick={cancelEditing}>Cancel</button>
+                <button onClick={() => saveEdit(post.id)} className="save-btn">Save</button>
+                <button onClick={cancelEditing} className="cancel-btn">Cancel</button>
               </div>
             ) : (
               <div>
-                <span>{post.id} - {post.title}</span>
-                <button onClick={() => handleSelectPost(post.id)}>Select</button>
-                <button onClick={() => startEditing(post.id, post.title, post.body)}>Edit</button>
-                <button onClick={() => handleDeletePost(post.id)}>Delete</button>
+                <div>
+                <span className="post-id">{post.id}</span>
+                <span className="post-title">{post.title}</span>
+                </div>
+                <div className="button-container">
+                  <button onClick={() => handleSelectPost(post.id)} className="read-more-btn">read more</button>
+                  {post.userId === Number(userId) && (
+                    <>
+                      <button onClick={() => startEditing(post.id, post.title, post.body)} className="edit-btn">Edit</button>
+                      <button onClick={() => handleDeletePost(post.id)} className="delete-btn">Delete</button>
+                    </>
+                  )}
+                </div>
                 {selectedPostId === post.id && (
                   <div className="selected-post">
                     <p>{post.body}</p>
-                    <button onClick={() => handleShowComments(post.id)}>Show Comments</button>
+                    <button onClick={() => handleShowComments(post.id)} className="show-comments-btn">Show Comments</button>
                     {showComments && (
                       <>
                         <h3>Comments</h3>
@@ -314,16 +327,16 @@ const PostsPage = () => {
                                     value={editingCommentContent}
                                     onChange={(e) => setEditingCommentContent(e.target.value)}
                                   />
-                                  <button onClick={() => saveEditComment(comment.id)}>Save</button>
-                                  <button onClick={cancelEditingComment}>Cancel</button>
+                                  <button onClick={() => saveEditComment(comment.id)} className="save-btn">Save</button>
+                                  <button onClick={cancelEditingComment} className="cancel-btn">Cancel</button>
                                 </div>
                               ) : (
                                 <div>
                                   <p>{comment.body}</p>
                                   {comment.email === userEmail && (
                                     <>
-                                      <button onClick={() => startEditingComment(comment.id, comment.body)}>Edit</button>
-                                      <button onClick={() => handleDeleteComment(comment.id)}>Delete</button>
+                                      <button onClick={() => startEditingComment(comment.id, comment.body)} className="edit-btn">Edit</button>
+                                      <button onClick={() => handleDeleteComment(comment.id)} className="delete-btn">Delete</button>
                                     </>
                                   )}
                                 </div>
