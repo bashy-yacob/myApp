@@ -8,7 +8,6 @@
 .dashboard-nav {
   display: flex;
   gap: 10px;
-  /* justify-content: space-around; */
 }
 
 .dashboard-nav button {

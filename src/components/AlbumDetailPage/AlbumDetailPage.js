@@ -19,29 +19,25 @@ const AlbumDetailPage = () => {
   const fetchPhotos = async (start) => {
     try {
       setLoading(true);
-      // נוסיף פרמטר _end כדי לוודא שנקבל בדיוק 10 תמונות
       const response = await fetch(
-        `${API_BASE_URL}/photos?albumId=${albumId}&_start=${start}&_limit=${photosPerPage}&_end=${start + photosPerPage}`
+        // `${API_BASE_URL}/photos?albumId=${albumId}&_start=${start}&_limit=${photosPerPage}&_end=${start + photosPerPage}`
+        `${API_BASE_URL}/photos?albumId=${albumId}&_start=${start}&_limit=${photosPerPage}`
       );
-      
-      if (!response.ok) {
-        throw new Error('Failed to fetch photos');
-      }
 
-      const newPhotos = await response.json();
-      console.log('Fetched photos count:', newPhotos.length); // להוספת לוג לבדיקה
-      
-      // אם קיבלנו פחות תמונות ממה שביקשנו, סימן שאין עוד
-      if (newPhotos.length < photosPerPage) {
-        setHasMore(false);
+      if (response.ok) {
+        const newPhotos = await response.json();
+        console.log('Fetched photos count:', newPhotos.length); 
+        if (newPhotos.length < photosPerPage) {
+          setHasMore(false);
+        }
+        setPhotos(prevPhotos => [...prevPhotos, ...newPhotos]);
       }
-
-      // מוסיף את התמונות החדשות לקיימות
-      setPhotos(prevPhotos => [...prevPhotos, ...newPhotos]);
     } catch (err) {
       setError('Error loading photos');
       console.error(err);
-    } finally {
+    } 
+    
+    finally {
       setLoading(false);
     }
   };
@@ -49,10 +45,12 @@ const AlbumDetailPage = () => {
   // טעינה ראשונית
   useEffect(() => {
     setPhotos([]);
-    setHasMore(true);
+
+    
     fetchPhotos(0);
   }, [albumId]);
 
+    
   const handleLoadMore = () => {
     fetchPhotos(photos.length);
   };
@@ -63,7 +61,6 @@ const AlbumDetailPage = () => {
         const response = await fetch(`${API_BASE_URL}/photos/${photoId}`, {
           method: 'DELETE'
         });
-        
         if (response.ok) {
           setPhotos(photos.filter(photo => photo.id !== photoId));
         }
@@ -87,10 +84,9 @@ const AlbumDetailPage = () => {
         },
         body: JSON.stringify({ title: editTitle })
       });
-
       if (response.ok) {
         const updatedPhoto = await response.json();
-        setPhotos(photos.map(photo => 
+        setPhotos(photos.map(photo =>
           photo.id === updatedPhoto.id ? updatedPhoto : photo
         ));
         setEditingPhoto(null);
@@ -168,8 +164,8 @@ const AlbumDetailPage = () => {
           </div>
         ))}
       </div>
-      
-      <button 
+
+      <button
         className="add-photo-toggle-btn"
         onClick={() => setIsAddingPhoto(!isAddingPhoto)}
       >
@@ -199,7 +195,7 @@ const AlbumDetailPage = () => {
       )}
 
       {hasMore && (
-        <button 
+        <button
           className="load-more-button"
           onClick={handleLoadMore}
           disabled={loading}

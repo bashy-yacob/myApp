@@ -16,6 +16,7 @@ import { UserContext, UserProvider } from './context/UserContext';
 
 function App() {
   const { user, setUser } = useContext(UserContext);
+  
 
   const handleLogout = () => {
     localStorage.removeItem('user');

@@ -1,11 +1,12 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import './PostsPage.css';
 import { API_BASE_URL } from '../../config/config';
+import { UserContext } from '../../context/UserContext';
 
 const PostsPage = () => {
   const { userId } = useParams();
-  const [posts, setPosts] = useState([]);
+  const { setUser } = useContext(UserContext);
   const [comments, setComments] = useState([]);
   const [search, setSearch] = useState("");
   const [selectedPostId, setSelectedPostId] = useState(null);
@@ -21,45 +22,20 @@ const PostsPage = () => {
   const [searchCriterion, setSearchCriterion] = useState('id');
   const [showComments, setShowComments] = useState(false);
   const [viewAll, setViewAll] = useState(false);
-  const [userEmail, setUserEmail] = useState('');
   const [showAddPost, setShowAddPost] = useState(false);
   const [sortCriterion, setSortCriterion] = useState('id');
-  const [allPosts, setAllPosts] = useState([]); // Add this new state
-
-  useEffect(() => {
-    const fetchUserEmail = () => {
-      try {
-        const userData = localStorage.getItem('user');
-        if (userData) {
-          const user = JSON.parse(userData);
-          setUserEmail(user.email);
-        }
-      } catch (error) {
-        console.error('Error fetching user email from local storage:', error);
-      }
-    };
-
-    fetchUserEmail();
-  }, [userId]);
+  const [allPosts, setAllPosts] = useState([]);
+  const userEmail = setUser.email;
 
   useEffect(() => {
     const fetchAllPosts = async () => {
       try {
-        console.log('Attempting to fetch from:', `${API_BASE_URL}/posts`);
         const response = await fetch(`${API_BASE_URL}/posts`);
-        
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+        if (response.ok) {          
+          const data = await response.json();
+          console.log('Received data:', data);
+          setAllPosts(data);
         }
-        
-        const contentType = response.headers.get('content-type');
-        if (!contentType || !contentType.includes('application/json')) {
-          throw new Error('Server did not return JSON');
-        }
-
-        const data = await response.json();
-        console.log('Received data:', data);
-        setAllPosts(data);
       } catch (error) {
         console.error('Detailed error:', error);
         if (error.message.includes('Failed to fetch')) {
@@ -69,9 +45,8 @@ const PostsPage = () => {
         }
       }
     };
-
     fetchAllPosts();
-  }, []); // Only fetch once when component mounts
+  }, []);
 
   const handleSearch = (e) => {
     setSearch(e.target.value);

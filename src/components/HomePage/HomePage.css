@@ -1,36 +1,90 @@
 .home-page {
+  padding: 1rem;
   text-align: center;
-  padding: 20px;
   background-attachment: fixed;
-}
-
-.home-header {
-  padding: 20px;
-}
-
-.home-content {
-  margin-top: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 body {
-  
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
 }
 
-.navbar {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 200px;
-  height: 100%;
-  background-color: #333;
-  color: white;
-  padding: 20px;
+.feature-card {
+  flex: 1;  /* כל הקלפים יקבלו רוחב זהה */
+  width: calc(33.333% - 1rem);  /* חלוקה שווה לשלושה עם רווח ביניהם */
+  max-width: none;  /* הסרת ההגבלה של max-width */
+  min-width: 200px;  /* רוחב מינימלי */
+  background:rgba(255, 255, 255, 0.559);
+  border-radius: 10px;
+  padding: 1.5rem;
+
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  cursor: pointer;  /* מראה שזה אלמנט לחיץ */
 }
 
-.main-content {
-  margin-left: 220px;
-  padding: 20px;
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.feature-card img {
+  width: 150px;
+  height: 150px; 
+  border-radius: 30%; 
+  object-fit: cover;
+  margin-bottom: 1rem;
+}
+
+.feature-card h2 {
+  margin: 0.5rem 0;
+  color: #333;
+}
+
+.feature-card p {
+  color: #666;
+  margin: 0;
+}
+
+.welcome-section {
+  margin-bottom: 1rem;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.559);
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.welcome-section h1 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.welcome-section p {
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.features-container {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  /* padding: 1rem; */
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+
+  .features-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .feature-card {
+    width: 100%;
+    max-width: 300px;  /* הקטנת הרוחב המקסימלי במסך קטן */
+  }
 }

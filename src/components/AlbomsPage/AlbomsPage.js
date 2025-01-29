@@ -12,8 +12,8 @@ const AlbomsPage = () => {
   const [newAlbumTitle, setNewAlbumTitle] = useState('');
   const [error, setError] = useState(null);
   const [showAddAlbum, setShowAddAlbum] = useState(false);
-  const [sortBy, setSortBy] = useState('id'); // Default sort
-  const [sortDirection, setSortDirection] = useState('asc'); // Default direction
+  const [sortBy, setSortBy] = useState('id'); 
+  const [sortDirection, setSortDirection] = useState('asc');
 
   useEffect(() => {
     fetchAlbums();
@@ -86,6 +86,7 @@ const AlbomsPage = () => {
     const [newSortBy, newDirection] = value.split('-');
     setSortBy(newSortBy);
     setSortDirection(newDirection);
+    filteredAlbums()
   };
 
   const getSortedAlbums = () => {

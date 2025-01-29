@@ -15,6 +15,7 @@ const Dashboard = ({ user, onLogout }) => {
   return (
     <div className="dashboard">
       <nav className="dashboard-nav">
+        <button onClick={() => navigate(`/users/${userId}/home`)}>home</button>
         <button onClick={() => navigate(`/users/${userId}/home/info`)}>Info</button>
         <button onClick={() => navigate(`/users/${userId}/todos`)}>Todos</button>
         <button onClick={() => navigate(`/users/${userId}/posts`)}>Posts</button>

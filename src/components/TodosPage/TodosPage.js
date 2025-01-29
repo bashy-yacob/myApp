@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import './TodosPage.css';
+import { API_BASE_URL } from '../../config/config';
 
 const TodosPage = () => {
   const { userId } = useParams();
   const [todos, setTodos] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [sortCriterion, setSortCriterion] = useState('');
   const [newTodoTitle, setNewTodoTitle] = useState('');
   const [showAddTodo, setShowAddTodo] = useState(false);
   const [editingTodoId, setEditingTodoId] = useState(null);
@@ -15,10 +15,11 @@ const TodosPage = () => {
   useEffect(() => {
     const fetchTodos = async () => {
       try {
-        const response = await fetch(`http://localhost:5010/todos?userId=${userId}`);
+        const response = await fetch(`${API_BASE_URL}/todos?userId=${userId}`);
         if (response.ok) {
           const data = await response.json();
           setTodos(data);
+          console.log(data);
         }
       } catch (error) {
         console.error('Error fetching todos:', error);
@@ -26,11 +27,8 @@ const TodosPage = () => {
     };
 
     fetchTodos();
-  }, [userId]);
+  }, []);
 
-  // ... rest of the component code
-
-  // מיון ה-Todos
   const sortTodos = (criterion) => {
     const sortedTodos = [...todos];
     switch (criterion) {
@@ -52,25 +50,22 @@ const TodosPage = () => {
     setTodos(sortedTodos);
   };
 
-  // הוספת פריט חדש
   const addTodo = async () => {
     if (!newTodoTitle) return;
 
     const newTodo = {
-      userId: Number(userId), // ודא ש-userId הוא מספר
+      userId: Number(userId),
       title: newTodoTitle,
       completed: false,
     };
-
     try {
-      const response = await fetch('http://localhost:5010/todos', {
+      const response = await fetch(`${API_BASE_URL}/todos`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(newTodo),
       });
-
       if (response.ok) {
         const savedTodo = await response.json(); // קבלת ה-TODO המלא מהשרת
         setTodos([...todos, { ...savedTodo, userId: Number(savedTodo.userId) }]); // הבטחת עקביות
@@ -82,7 +77,6 @@ const TodosPage = () => {
     }
   };
 
-  //עריכת פריט
   const startEditing = (id, title) => {
     setEditingTodoId(id);
     setEditingTitle(title);
@@ -97,18 +91,15 @@ const TodosPage = () => {
     const updatedTodos = todos.map((todo) =>
       todo.id === id ? { ...todo, title: editingTitle } : todo
     );
-
     const updatedTodo = updatedTodos.find((todo) => todo.id === id);
-
     try {
-      const response = await fetch(`http://localhost:5010/todos/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/todos/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(updatedTodo),
       });
-
       if (response.ok) {
         setTodos(updatedTodos);
         cancelEditing();
@@ -118,11 +109,9 @@ const TodosPage = () => {
     }
   };
 
-
-  // מחיקת פריט
   const deleteTodo = async (id) => {
     try {
-      const response = await fetch(`http://localhost:5010/todos/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/todos/${id}`, {
         method: "DELETE",
       });
 
@@ -134,23 +123,19 @@ const TodosPage = () => {
     }
   };
 
-  // עדכון מצב הפריט
   const toggleCompletion = async (id) => {
     const updatedTodos = todos.map((todo) =>
       todo.id === id ? { ...todo, completed: !todo.completed } : todo
     );
-
     const updatedTodo = updatedTodos.find((todo) => todo.id === id);
-
     try {
-      const response = await fetch(`http://localhost:5010/todos/${id}`, {
+      const response = await fetch(`${API_BASE_URL}/todos/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(updatedTodo),
       });
-
       if (response.ok) {
         setTodos(updatedTodos);
       }
@@ -159,15 +144,17 @@ const TodosPage = () => {
     }
   };
 
-  // סינון לפי קריטריון חיפוש
   const filteredTodos = todos.filter((todo) => {
     const searchLower = searchQuery.toLowerCase();
     return (
       todo.id.toString().includes(searchLower) ||
-      todo.title.toLowerCase().includes(searchLower) ||
+      todo.title.toLowerCase().includes(searchLower) 
+      ||
       (todo.completed ? 'completed' : 'not completed').includes(searchLower)
     );
   });
+
+
 
   return (
     <div className='todos-page'>

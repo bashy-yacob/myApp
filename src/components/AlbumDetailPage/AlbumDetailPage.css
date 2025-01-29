@@ -6,76 +6,12 @@
   /* background-attachment: fixed; */
 }
 
-.add-photo {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-  margin-top: 20px;
-}
-
-.add-photo input {
-  padding: 10px;
-  margin-right: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  font-size: 1em;
-}
-
-.add-photo button {
-  background-color: #00796b;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.add-photo button:hover {
-  background-color: #004d40;
-}
-
-.photos-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-.photo-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px;
-  background-color: #ffffffa8;
-  border: 1px solid #ffffff;
-  border-radius: 5px;
-}
-
-.photo-item img {
-  max-width: 150px;
-  border-radius: 5px;
-}
-
-.photo-item button {
-  background-color: #474747e2;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-.photo-item button:hover {
-  background-color: #ee5b5b;
-}
-
 .add-photo-form {
   position: fixed;
-  bottom: 100px;
-  right: 20px;
-  width: 300px;
-  background-color: white;
+  bottom: 70px;
+  right: 70px;
+  width: 200px;
+  background-color: rgb(255, 255, 255);
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -99,7 +35,7 @@
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background-color: #3498db;
+  background-color: #00796b;
   color: white;
   border: none;
   border-radius: 50%;
@@ -116,14 +52,14 @@
 }
 
 .add-photo-toggle-btn:hover {
-  background-color: #2980b9;
+  background-color: #00796bca;
   transform: scale(1.1);
 }
 
 .add-photo-submit-btn {
   width: 100%;
   padding: 10px;
-  background-color: #3498db;
+  background-color: #00796b;
   color: white;
   border: none;
   border-radius: 4px;
@@ -133,7 +69,7 @@
 }
 
 .add-photo-submit-btn:hover {
-  background-color: #2980b9;
+  background-color: #00796b97;
 }
 
 .album-detail {
@@ -150,7 +86,7 @@
 }
 
 .photo-card {
-  background: white;
+  background: rgba(255, 255, 255, 0.692);
   border-radius: 8px;
   padding: 15px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -177,7 +113,7 @@
   display: block;
   margin: 20px auto;
   padding: 12px 24px;
-  background-color: #3498db;
+  background-color: #00796b;
   color: white;
   border: none;
   border-radius: 5px;
@@ -187,7 +123,7 @@
 }
 
 .load-more-button:hover {
-  background-color: #2980b9;
+  background-color: #00796bca;
 }
 
 .load-more-button:disabled {
@@ -231,21 +167,21 @@
 }
 
 .edit-button {
-  background-color: #3498db;
+  background-color: #00796b;
   color: white;
 }
 
 .edit-button:hover {
-  background-color: #2980b9;
+  background-color: #00796bca;
 }
 
 .delete-button {
-  background-color: #e74c3c;
+  background-color:#00796b;
   color: white;
 }
 
 .delete-button:hover {
-  background-color: #c0392b;
+  background-color: #ff0051c0;
 }
 
 .edit-mode {

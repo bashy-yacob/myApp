@@ -7,24 +7,19 @@ import './RegisterPage.css';
 const RegisterPage = () => {
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
-  // Registration states
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVerify, setPasswordVerify] = useState('');
-  // User details states
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  // Address states
   const [street, setStreet] = useState('');
   const [suite, setSuite] = useState('');
   const [city, setCity] = useState('');
   const [zipcode, setZipcode] = useState('');
-  // Company states
   const [companyName, setCompanyName] = useState('');
   const [catchPhrase, setCatchPhrase] = useState('');
   const [bs, setBs] = useState('');
-  // UI states
   const [error, setError] = useState('');
   const [isValidated, setIsValidated] = useState(false);
 
@@ -38,17 +33,16 @@ const RegisterPage = () => {
 
     try {
       const response = await fetch(`${API_BASE_URL}/users?username=${username}`);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+      if (response.ok) {
+        const users = await response.json();
+        const userExists = users.length > 0;
+        if (userExists) {
+          setError('Username already exists!');
+          return;
+        }
+        setIsValidated(true);
+        setError('');
       }
-      const users = await response.json();
-      const userExists = users.length > 0;
-      if (userExists) {
-        setError('Username already exists!');
-        return;
-      }
-      setIsValidated(true);
-      setError('');
     } catch (err) {
       console.error('Error details:', err);
       if (err.message.includes('Failed to fetch')) {
@@ -102,7 +96,7 @@ const RegisterPage = () => {
           id: savedUser.id
         };
         localStorage.setItem('user', JSON.stringify(userInfo));
-        setUser(userInfo); // עדכון ה-context
+        setUser(userInfo); 
         navigate(`/users/${savedUser.id}/home`);
       }
     } catch (err) {
